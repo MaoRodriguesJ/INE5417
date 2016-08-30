@@ -1,3 +1,4 @@
+import hour
 import date
 
 class Event:
@@ -7,8 +8,25 @@ class Event:
 		self.local = local
 		self.author = author
 
-date1 = date.Date(1, '19:30', '20:30')
-date2 = date.Date(2, '19:30', '20:30')
+	def createEvent():
+		name = input('What is the name of the event?')
+		local = input('What is the local of the event?')
+		author = input('Who is the author of the event?')
+		dates = []
+		possible = True
+		while possible:
+			weekday = input('When is a possible weekday?')
+			starthour = hour.Hour(input('When is the start hour?'))
+			finishhour = hour.Hour(input('When in the finish hour?'))
+			x = date.Date(weekday, starthour, finishhour)
+			dates.append(x)
+			if(input('Any more dates?') == 'yes'):
+				possible = True
+			else:
+				possible = False
 
-seccom = Event('palestra1', [date1, date2], 'EPS', 'PET')
-print(seccom.dates[1].weekday)
+		return Event(name, dates, local, author)
+
+event1 = Event.createEvent()
+event2 = Event.createEvent()
+print(event1.dates[0].conflict(event2.dates[0]))

@@ -8,4 +8,10 @@ class Date:
 		if(date.weekday != self.weekday):
 			return False
 		else:
-			print('building')
+			if(date.starthour < self.finishhour and 
+				self.starthour < date.finishhour):
+				return True
+			else:
+				return False
+
+
