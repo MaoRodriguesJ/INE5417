@@ -26,7 +26,3 @@ class Event:
 				possible = False
 
 		return Event(name, dates, local, author)
-
-event1 = Event.createEvent()
-event2 = Event.createEvent()
-print(event1.dates[0].conflict(event2.dates[0]))
