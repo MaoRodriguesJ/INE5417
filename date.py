@@ -1,3 +1,5 @@
+import hour
+
 class Date:
 	def __init__(self, weekday, starthour, finishhour):
 		self.weekday = weekday
@@ -14,4 +16,6 @@ class Date:
 			else:
 				return False
 
-
+	def getHuman(self):
+		return '('+self.weekday+' ,'+self.starthour.getHuman()+'/'+(
+				self.finishhour.getHuman()+')')

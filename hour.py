@@ -29,3 +29,6 @@ class Hour:
 
 	def __eq__(self, other):
 		return (self.hour == other.hour and self.minute == other.minute)
+
+	def getHuman(self):
+		return self.hour+':'+self.minute
