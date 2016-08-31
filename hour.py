@@ -4,11 +4,11 @@ class Hour:
 		self.minute = hour.split(':')[1]
 
 	def __gt__(self, other):
-		if(self.hour >= other.hour):
-			if(self.hour > other.hour):
+		if self.hour >= other.hour:
+			if self.hour > other.hour:
 				return True
 			else:
-				if(self.minute > other.minute):
+				if self.minute > other.minute:
 					return True
 				else:
 					return False
@@ -16,11 +16,11 @@ class Hour:
 			return False
 
 	def __lt__(self, other):
-		if(self.hour <= other.hour):
-			if(self.hour < other.hour):
+		if self.hour <= other.hour:
+			if self.hour < other.hour:
 				return True
 			else:
-				if(self.minute < other.minute):
+				if self.minute < other.minute:
 					return True
 				else:
 					return False
@@ -30,5 +30,6 @@ class Hour:
 	def __eq__(self, other):
 		return (self.hour == other.hour and self.minute == other.minute)
 
-	def getHuman(self):
-		return self.hour+':'+self.minute
+	#for debbuging
+	def __str__(self):
+		return '{}:{}'.format(self.hour, self.minute)
