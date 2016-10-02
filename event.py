@@ -1,5 +1,6 @@
 import hour
 import date
+import author
 
 class Event:
 	def __init__(self, name, dates, local, author):
@@ -15,15 +16,17 @@ class Event:
 	def create_event():
 		name = input('What is the name of the event?')
 		local = input('What is the local of the event?')
-		author = input('Who is the author of the event?')
+		author_name = input('Who is the author of the event?')
+		author_cpf = input('What is the author CPF?')
+		author = author.Author(author_name, author_cpf)
 		dates = []
 		possible = True
 		while possible:
 			weekday = input('When is a possible weekday?')
 			starthour = hour.Hour(input('When is the start hour?'))
 			finishhour = hour.Hour(input('When in the finish hour?'))
-			x = date.Date(weekday, starthour, finishhour)
-			dates.append(x)
+			date = date.Date(weekday, starthour, finishhour)
+			dates.append(date)
 			if input('Any more dates?') == 'yes':
 				possible = True
 			else:

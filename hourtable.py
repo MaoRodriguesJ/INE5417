@@ -4,29 +4,42 @@ import author
 import handler
 
 class HourTable:
-	def __init__(self):
+	def __init__(self, name):
+		self.name = name
 		self.events = []
 		self.common = []
 		self.possibilities = []
 
-#main
-exit = False
-hour_table = HourTable()
-while not exit:
-	case = input("\n1 Create event\
-				  \n2 List events\
-				  \n3 Load Premade Events\
-				  \n4 Possible Combination\
-				  \n5 In Common COmbination\
-				  \n6 Exit\n")
-	if case == '1':
-		hour_table.events.append(event.Event.create_event())
+	def __repr__(self):
+		return self.name
 
-	if case == '2':
-		for k in hour_table.events:
+	#used for printing
+	def list_events(self):
+		print('\nHourTable: '+self.name)
+		for k in self.events:
+			print(k)
+		return ''
+
+	def add_event(self):
+		self.events.append(event.Event.create_event())
+
+	def check_possibilities(self):
+		case_event1 = int(input('Number of first event: '))
+		case_event2 = int(input('Number of second event: '))
+		possibilities = handler.Handler.possibilities(hour_table.events[case_event1],
+													  hour_table.events[case_event2])
+		for k in possibilities:
 			print(k)
 
-	if case == '3':
+	def check_common(self):
+		case_event1 = int(input('Number of first event: '))
+		case_event2 = int(input('Number of second event: '))
+		common = handler.Handler.incommon(hour_table.events[case_event1],
+										  hour_table.events[case_event2])
+		for k in common:
+			print(k)
+
+	def load_premade(self):
 		name1 = local1 = author1 = 'a'
 		date1 = date.Date(2, '13:00', '14:00')
 		date2 = date.Date(3, '14:00', '15:00')
@@ -39,24 +52,5 @@ while not exit:
 		dates2 = [date3, date4]
 		event2 = event.Event(name2, dates2, local2, author2)
 
-		hour_table.events.append(event1)
-		hour_table.events.append(event2)
-
-	if case == '4':
-		case_event1 = int(input('Number of first event: '))
-		case_event2 = int(input('Number of second event: '))
-		possibilities = handler.Handler.possibilities(hour_table.events[case_event1],
-									hour_table.events[case_event2])
-		for k in possibilities:
-			print(k)
-
-	if case == '5':
-		case_event1 = int(input('Number of first event: '))
-		case_event2 = int(input('Number of second event: '))
-		common = handler.Handler.incommon(hour_table.events[case_event1],
-								  hour_table.events[case_event2])
-		for k in common:
-			print(k)
-
-	if case == '6':
-		exit = True
+		self.events.append(event1)
+		self.events.append(event2)

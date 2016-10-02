@@ -4,4 +4,4 @@ class Author:
 		self.cpf = cpf
 
 	def __str__(self):
-		return '({}, {})'.format(self.name, self.cpf)
+		return '(Name:{}, CPF:{})'.format(self.name, self.cpf)
