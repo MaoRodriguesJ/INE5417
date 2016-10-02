@@ -43,10 +43,7 @@ def user_interaction(user):
 					print('Hourtable not found.')
 
 		if case == '3':
-			if current_hour_table == -1:
-				print('\nYou need to select a hourtable first.')
-			else:
-				print(user)
+			print(user)
 
 		if case == '4':
 			if current_hour_table == -1:
