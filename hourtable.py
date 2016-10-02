@@ -1,5 +1,6 @@
 import event
 import date
+import author
 import handler
 
 class HourTable:
@@ -42,21 +43,19 @@ while not exit:
 		hour_table.events.append(event2)
 
 	if case == '4':
-		handler_test = handler.Handler()
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		handler_test.possibilities(hour_table.events[case_event1],
+		possibilities = handler.Handler.possibilities(hour_table.events[case_event1],
 									hour_table.events[case_event2])
-		for k in handler_test.possible_events:
+		for k in possibilities:
 			print(k)
 
 	if case == '5':
-		handler_test = handler.Handler()
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		handler_test.incommon(hour_table.events[case_event1],
-							  hour_table.events[case_event2])
-		for k in handler_test.possible_events:
+		common = handler.Handler.incommon(hour_table.events[case_event1],
+								  hour_table.events[case_event2])
+		for k in common:
 			print(k)
 
 	if case == '6':
