@@ -18,18 +18,18 @@ class Event:
 		local = input('What is the local of the event?')
 		author_name = input('Who is the author of the event?')
 		author_cpf = input('What is the author CPF?')
-		author = author.Author(author_name, author_cpf)
+		author1 = author.Author(author_name, author_cpf)
 		dates = []
 		possible = True
 		while possible:
 			weekday = input('When is a possible weekday?')
 			starthour = hour.Hour(input('When is the start hour?'))
 			finishhour = hour.Hour(input('When in the finish hour?'))
-			date = date.Date(weekday, starthour, finishhour)
-			dates.append(date)
-			if input('Any more dates?') == 'yes':
+			date1 = date.Date(weekday, starthour, finishhour)
+			dates.append(date1)
+			if input('Any more dates?') == 'y':
 				possible = True
 			else:
 				possible = False
 
-		return Event(name, dates, local, author)
+		return Event(name, dates, local, author1)

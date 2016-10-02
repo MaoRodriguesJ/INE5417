@@ -38,6 +38,7 @@ def user_interaction(user):
 					if k.name == name:
 						current_hour_table = i
 						table_found = True
+						print('Your current hourtable is: '+user.hourtables[current_hour_table].name)
 				if not table_found:
 					print('Hourtable not found.')
 
@@ -56,18 +57,27 @@ def user_interaction(user):
 		if case == '5':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			else:
+				user.hourtables[current_hour_table].load_premade()
 
 		if case == '6':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			else:
+				user.hourtables[current_hour_table].add_event()
+
 
 		if case == '7':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			else:
+				user.hourtables[current_hour_table].check_possibilities()
 
 		if case == '8':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			else:
+				user.hourtables[current_hour_table].check_common()
 
 		if case == '9':
 			signout = True

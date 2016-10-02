@@ -26,16 +26,16 @@ class HourTable:
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		possibilities = handler.Handler.possibilities(hour_table.events[case_event1],
-													  hour_table.events[case_event2])
+		possibilities = handler.Handler.possibilities(self.events[case_event1],
+													  self.events[case_event2])
 		for k in possibilities:
 			print(k)
 
 	def check_common(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		common = handler.Handler.incommon(hour_table.events[case_event1],
-										  hour_table.events[case_event2])
+		common = handler.Handler.incommon(self.events[case_event1],
+										  self.events[case_event2])
 		for k in common:
 			print(k)
 
