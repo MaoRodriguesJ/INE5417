@@ -18,7 +18,6 @@ class HourTable:
 		print('\nHourTable: '+self.name)
 		for k in self.events:
 			print(k)
-		return ''
 
 	def add_event(self):
 		self.events.append(event.Event.create_event())
