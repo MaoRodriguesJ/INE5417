@@ -18,7 +18,7 @@ while not exit:
 	if case == '3':
 		handler_test = handler.Handler()
 		case_event1 = int(input('Number of first event: '))
-		case_event2 = int(input('Número of second event: '))
+		case_event2 = int(input('Number of second event: '))
 		handler_test.possibilities(hour_table.events[case_event1],
 									hour_table.events[case_event2])
 		for k in handler_test.possible_events:
