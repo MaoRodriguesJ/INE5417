@@ -48,18 +48,24 @@ def user_interaction(user):
 		if case == '4':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			elif current_hour_table == -2:
+				print('\nYou need to create a hourtable first.')
 			else:
 				user.hourtables[current_hour_table].list_events()
 
 		if case == '5':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			elif current_hour_table == -2:
+				print('\nYou need to create a hourtable first.')
 			else:
 				user.hourtables[current_hour_table].load_premade()
 
 		if case == '6':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			elif current_hour_table == -2:
+				print('\nYou need to create a hourtable first.')
 			else:
 				user.hourtables[current_hour_table].add_event()
 
@@ -67,12 +73,16 @@ def user_interaction(user):
 		if case == '7':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			elif current_hour_table == -2:
+				print('\nYou need to create a hourtable first.')
 			else:
 				user.hourtables[current_hour_table].check_possibilities()
 
 		if case == '8':
 			if current_hour_table == -1:
 				print('\nYou need to select a hourtable first.')
+			elif current_hour_table == -2:
+				print('\nYou need to create a hourtable first.')
 			else:
 				user.hourtables[current_hour_table].check_common()
 
