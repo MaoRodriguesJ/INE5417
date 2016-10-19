@@ -1,5 +1,3 @@
-import hour
-
 class Date:
 	def __init__(self, weekday, starthour, finishhour):
 		self.weekday = weekday

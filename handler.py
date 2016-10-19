@@ -3,6 +3,7 @@ import event
 class Handler:
 
 	#JUST FOR TESTING (SHOWING CONFLICTS)
+	@staticmethod
 	def possibilities(event1, event2):
 		possible_events = []
 		for dates1 in event1.dates:
@@ -15,6 +16,7 @@ class Handler:
 						dates2))
 		return possible_events
 
+	@staticmethod
 	def incommon(event1, event2):
 		incommon_events = []
 		for dates1 in event1.dates:
