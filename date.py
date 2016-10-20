@@ -1,5 +1,6 @@
-from hour import Hour
 import event
+from hour import Hour
+
 from main import Session
 from base import Base
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
@@ -16,17 +17,18 @@ class Date(Base):
 	event_id = Column(Integer, ForeignKey('event._id'))
 	event = relationship(event.Event)
 
-	def __init__(self, weekday, start_hour, finish_hour):
+	def __init__(self, weekday, start_hour, finish_hour, event):
 		self.weekday = weekday
 		self.start_hour = start_hour
 		self.finis_hhour = finish_hour
+		self.event = event
 
 	@orm.reconstructor
 	def init_on_load(self):
 		self.start_hour = Session.query(Hour).filter(
-											  Hour._id == self.start_hour_id).one()
+						  Hour._id == self.start_hour_id).scalar()
 		self.finish_hour = Session.query(Hour).filter(
-											   Hour._id == self.finish_hour_id).one()
+						   Hour._id == self.finish_hour_id).scalar()
 
 	def __repr__(self):
 		return '({}, {}/{})'.format(self.weekday, self.start_hour, self.finish_hour)

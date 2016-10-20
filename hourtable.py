@@ -1,6 +1,7 @@
 import event
 from user import User
 from handler import Handler
+
 from main import Session
 from base import Base
 from sqlalchemy import Column, Integer, String, orm
@@ -18,8 +19,8 @@ class HourTable(Base):
 
 	@orm.reconstructor
 	def init_on_load(self):
-		self.events = Session.query(Event).filter(
-										   Event.hourtable_id == self._id).all()
+		self.events = Session.query(event.Event).filter(
+					  event.Event.hourtable_id == self._id).all()
 
 	def __repr__(self):
 		return self.name

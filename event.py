@@ -1,7 +1,8 @@
-from hour import Hour
 import date
-from user import User
 import hourtable
+from user import User
+from hour import Hour
+
 from main import Session
 from base import Base
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
@@ -17,18 +18,19 @@ class Event(Base):
 	hourtable_id = Column(Integer, ForeignKey('hourtable._id'))
 	hourtable = relationship(hourtable.HourTable)
 
-	def __init__(self, name, dates, local, user):
+	def __init__(self, name, local, user, hourtable):
 		self.name = name
-		self.dates = dates
 		self.local = local
 		self.user = user
+		self.hourtable = hourtable
+		self.dates = []
 
 	@orm.reconstructor
 	def init_on_load(self):
-		self.dates = Session.query(Date).filter(
-										 Date.event_id == self._id).all()
+		self.dates = Session.query(date.Date).filter(
+					 date.Date.event_id == self._id).all()
 		self.user = Session.query(User).filter(
-										User._id == self.user_id).one()
+					User._id == self.user_id).first()
 
 
 	def __str__(self):

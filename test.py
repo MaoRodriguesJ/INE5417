@@ -1,11 +1,11 @@
 from main import Session
-from hourtable import Hourtable
+import hourtable
 from date import Date
 from user import User
-from hourtable import Hourtable
 from event import Event
+from hour import Hour
 
-hour_table = HourTable(name='test1')
+hour_table = hourtable.HourTable(name='test1')
 user = User(name='user1', email='email@1')
 event = Event(name='event1', local='local1', user=user, hourtable=hour_table)
 hour_start = Hour('10:15')
