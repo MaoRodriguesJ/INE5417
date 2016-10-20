@@ -1,4 +1,12 @@
-class Hour:
+from arquivo_onde_esta_o_base import Base
+from sqlalchemy import Column, Integer, String
+
+class Hour(Base):
+	__tablename_ = 'hour'
+	_id = Column(Integer, primary_key=True)
+	hour = Column(Integer)
+	minute = Column(Integer)
+
 	def __init__(self, hour):
 		self.hour = hour.split(':')[0]
 		self.minute = hour.split(':')[1]

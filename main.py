@@ -1,5 +1,4 @@
-import user
-import hourtable
+from hourtable import Hourtable
 
 def user_interaction(user):
 	signout = False
@@ -90,33 +89,5 @@ def user_interaction(user):
 			signout = True
 
 exit = False
-users = []
 while not exit:
-	case = input("\n1 Sing Up\
-				  \n2 Sign In\
-				  \n3 List Users\
-				  \n4 Exit\n")
-	if case == '1':
-		users.append(user.User.create_user())
-
-	if case == '2':
-		name = input('What is the username?\n')
-		logged = False
-		for k in users:
-			if k.name == name:
-				password = input('What is the password?\n')
-				if k.password == password:
-					logged = True
-					user = k
-				else:
-					print('Wrong password.')
-
-		if logged:
-			user_interaction(user)
-		else:
-			print('User not found.')
-	if case == '3':
-		for k in users:
-			print(k)
-	if case == '4':
-		exit = True
+	

@@ -1,14 +1,25 @@
-import event
-import date
-import author
-import handler
+from event import Event
+from date import Date
+from user import User
+from handler import Handler
+from arquivo_onde_esta_o_base import Base, Session
+from sqlalchemy import Column, Integer, String, orm
 
-class HourTable:
+class HourTable(Base):
+	__tablename__ = 'hourtable'
+	_id = Column(Integer, primary_key=True)
+	name = Column(String(250))
+
 	def __init__(self, name):
 		self.name = name
 		self.events = []
 		self.common = []
 		self.possibilities = []
+
+	@orm.reconstructor
+	def init_on_load(self):
+		self.events = Session.query(Event).filter(
+										   Event.hourtable_id == self._id).all()
 
 	def __repr__(self):
 		return self.name
@@ -20,12 +31,12 @@ class HourTable:
 			print(k)
 
 	def add_event(self):
-		self.events.append(event.Event.create_event())
+		self.events.append(Event.create_event())
 
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		possibilities = handler.Handler.possibilities(self.events[case_event1],
+		possibilities = Handler.possibilities(self.events[case_event1],
 													  self.events[case_event2])
 		for k in possibilities:
 			print(k)
@@ -33,23 +44,25 @@ class HourTable:
 	def check_common(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
-		common = handler.Handler.incommon(self.events[case_event1],
+		common = Handler.incommon(self.events[case_event1],
 										  self.events[case_event2])
 		for k in common:
 			print(k)
 
 	def load_premade(self):
-		name1 = local1 = author1 = 'a'
-		date1 = date.Date(2, '13:00', '14:00')
-		date2 = date.Date(3, '14:00', '15:00')
+		name1 = local1 = 'a'
+		date1 = Date(2, '13:00', '14:00')
+		date2 = Date(3, '14:00', '15:00')
 		dates1 = [date1, date2]
-		event1 = event.Event(name1, dates1, local1, author1)
+		user1 = User('a', 'a@a.com')
+		event1 = Event(name1, dates1, local1, user1)
 
-		name2 = local2 = author2 = 'b'
-		date3 = date.Date(2, '14:00', '15:00')
-		date4 = date.Date(3, '14:00', '15:00')
+		name2 = local2 = 'b'
+		date3 = Date(2, '14:00', '15:00')
+		date4 = Date(3, '14:00', '15:00')
 		dates2 = [date3, date4]
-		event2 = event.Event(name2, dates2, local2, author2)
+		user2 = User('b', 'b@b.com')
+		event2 = Event(name2, dates2, local2, user2)
 
 		self.events.append(event1)
 		self.events.append(event2)

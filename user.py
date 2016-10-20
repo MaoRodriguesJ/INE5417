@@ -1,16 +1,20 @@
-class User:
-	def __init__(self, name, password):
+from arquivo_onde_esta_o_base import Base
+from sqlalchemy import Column, Integer, String
+
+class User(Base):
+	__tablename__ = 'user'
+	_id = Column(Integer, primary_key=True)
+	name = Column(String(250))
+	email = Column(String(250))
+
+	def __init__(self, name, email):
 		self.name = name
-		self.password = password
-		self.hourtables = []
+		self.email = email
 
 	def __str__(self):
-		return '\n{} \n{}'.format(self.name, self.hourtables)
+		return '\n{} \n{}'.format(self.name, self.email)
 
 	def create_user():
 		name = input('Choose a name: ')
-		password = input('Choose a password: ')
-		return User(name, password)
-
-	def add_hourtable(self, hourtable):
-		self.hourtables.append(hourtable)
+		email = input('Choose a email: ')
+		return User(name, email)
