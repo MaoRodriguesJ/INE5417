@@ -1,8 +1,9 @@
 from hour import Hour
-from date import Date
+import date
 from user import User
-from hourtable import Hourtable
-from arquivo_onde_esta_o_base import Base, Session
+import hourtable
+from main import Session
+from base import Base
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship
 
@@ -12,9 +13,9 @@ class Event(Base):
 	name = Column(String(250))
 	local = Column(String(250))
 	user_id = Column(Integer, ForeignKey('user._id'))
-	user = relationship(user.User)
+	user = relationship(User)
 	hourtable_id = Column(Integer, ForeignKey('hourtable._id'))
-	hourtable = relationship(HourTable)
+	hourtable = relationship(hourtable.HourTable)
 
 	def __init__(self, name, dates, local, user):
 		self.name = name
@@ -22,7 +23,7 @@ class Event(Base):
 		self.local = local
 		self.user = user
 
-	@orm.constructor
+	@orm.reconstructor
 	def init_on_load(self):
 		self.dates = Session.query(Date).filter(
 										 Date.event_id == self._id).all()
@@ -44,7 +45,7 @@ class Event(Base):
 			weekday = input('When is a possible weekday?')
 			starthour = Hour(input('When is the start hour?'))
 			finishhour = Hour(input('When in the finish hour?'))
-			date1 = Date(weekday, starthour, finishhour)
+			date1 = date.Date(weekday, starthour, finishhour)
 			dates.append(date1)
 			if input('Any more dates?') == 'y':
 				possible = True

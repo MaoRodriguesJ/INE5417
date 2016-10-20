@@ -1,4 +1,4 @@
-from arquivo_onde_esta_o_base import Base
+from base import Base
 from sqlalchemy import Column, Integer, String
 
 class User(Base):

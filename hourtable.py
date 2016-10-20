@@ -1,8 +1,8 @@
-from event import Event
-from date import Date
+import event
 from user import User
 from handler import Handler
-from arquivo_onde_esta_o_base import Base, Session
+from main import Session
+from base import Base
 from sqlalchemy import Column, Integer, String, orm
 
 class HourTable(Base):
@@ -31,7 +31,7 @@ class HourTable(Base):
 			print(k)
 
 	def add_event(self):
-		self.events.append(Event.create_event())
+		self.events.append(event.Event.create_event())
 
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))
@@ -48,21 +48,3 @@ class HourTable(Base):
 										  self.events[case_event2])
 		for k in common:
 			print(k)
-
-	def load_premade(self):
-		name1 = local1 = 'a'
-		date1 = Date(2, '13:00', '14:00')
-		date2 = Date(3, '14:00', '15:00')
-		dates1 = [date1, date2]
-		user1 = User('a', 'a@a.com')
-		event1 = Event(name1, dates1, local1, user1)
-
-		name2 = local2 = 'b'
-		date3 = Date(2, '14:00', '15:00')
-		date4 = Date(3, '14:00', '15:00')
-		dates2 = [date3, date4]
-		user2 = User('b', 'b@b.com')
-		event2 = Event(name2, dates2, local2, user2)
-
-		self.events.append(event1)
-		self.events.append(event2)
