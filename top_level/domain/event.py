@@ -1,5 +1,5 @@
-from hourtable import HourTable
-from user import User
+from .hourtable import HourTable
+from .user import User
 
 from ..technical.db import Base, Session
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
@@ -24,9 +24,9 @@ class Event(Base):
 
 	@orm.reconstructor
 	def init_on_load(self):
-		from date import Date
-		self.dates = Session.query(date.Date).filter(
-					 date.Date.event_id == self._id).all()
+		from .date import Date
+		self.dates = Session.query(Date).filter(
+					 Date.event_id == self._id).all()
 		self.user = Session.query(User).filter(
 					User._id == self.user_id).first()
 
@@ -37,8 +37,8 @@ class Event(Base):
 
 	#testing, not to be used in final project	
 	def create_event():
-		from hour import Hour
-		from date import Date
+		from .hour import Hour
+		from .date import Date
 		name = input('What is the name of the event?')
 		local = input('What is the local of the event?')
 		user1 = User.create_user()

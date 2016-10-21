@@ -16,7 +16,7 @@ class HourTable(Base):
 
 	@orm.reconstructor
 	def init_on_load(self):
-		from event import Event
+		from .event import Event
 		self.events = Session.query(Event).filter(
 					  					   Event.hourtable_id == self._id).all()
 
@@ -31,7 +31,7 @@ class HourTable(Base):
 
 	#do not know if its going to be like this		
 	def add_event(self):
-		from event import Event
+		from .event import Event
 		self.events.append(Event.create_event())
 
 	def check_possibilities(self):

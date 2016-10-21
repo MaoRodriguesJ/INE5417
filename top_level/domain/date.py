@@ -1,5 +1,5 @@
-from event import Event
-from hour import Hour
+from .event import Event
+from .hour import Hour
 
 from ..technical.db import Base, Session
 from sqlalchemy import Column, Integer, String, ForeignKey, orm

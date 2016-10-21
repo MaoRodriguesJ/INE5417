@@ -1,14 +1,10 @@
-from main import Session
-from hourtable import HourTable
-from date import Date
-from user import User
-from event import Event
-from hour import Hour
+from top_level.technical.db import Session
+from top_level.domain import hourtable, date, user, event, hour
 
-hours = Session.query(Hour).all()
+hours = Session.query(hour.Hour).all()
 for i in hours:
 	print(i)
 
-hourtable = Session.query(HourTable).first()
+hourtable = Session.query(hourtable.HourTable).first()
 for i in hourtable.events:
 	print(i)
