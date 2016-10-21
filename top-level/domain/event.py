@@ -1,10 +1,7 @@
-import date
-import hourtable
+from hourtable import HourTable
 from user import User
-from hour import Hour
 
-from main import Session
-from base import Base
+from ..technical.db import Base, Session
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship
 
@@ -16,7 +13,7 @@ class Event(Base):
 	user_id = Column(Integer, ForeignKey('user._id'))
 	user = relationship(User)
 	hourtable_id = Column(Integer, ForeignKey('hourtable._id'))
-	hourtable = relationship(hourtable.HourTable)
+	hourtable = relationship(HourTable)
 
 	def __init__(self, name, local, user, hourtable):
 		self.name = name
@@ -27,6 +24,7 @@ class Event(Base):
 
 	@orm.reconstructor
 	def init_on_load(self):
+		from date import Date
 		self.dates = Session.query(date.Date).filter(
 					 date.Date.event_id == self._id).all()
 		self.user = Session.query(User).filter(
@@ -37,7 +35,10 @@ class Event(Base):
 		return '\nName: {}\nLocal: {}\nUser: {}\nPossible dates: {}'.format(
 			self.name, self.local, self.user, self.dates)
 
+	#testing, not to be used in final project	
 	def create_event():
+		from hour import Hour
+		from date import Date
 		name = input('What is the name of the event?')
 		local = input('What is the local of the event?')
 		user1 = User.create_user()
@@ -47,7 +48,7 @@ class Event(Base):
 			weekday = input('When is a possible weekday?')
 			starthour = Hour(input('When is the start hour?'))
 			finishhour = Hour(input('When in the finish hour?'))
-			date1 = date.Date(weekday, starthour, finishhour)
+			date1 = Date(weekday, starthour, finishhour)
 			dates.append(date1)
 			if input('Any more dates?') == 'y':
 				possible = True

@@ -4,9 +4,9 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
-engine = create_engine('sqlite:///sqlalchemy.db')
-Base.metadata.bind = engine
-DBSession = sessionmaker(bind=engine)
+Engine = create_engine('sqlite:///sqlalchemy.db')
+Base.metadata.bind = Engine
+DBSession = sessionmaker(bind=Engine)
 Session = DBSession()
 
 #Base.metadata.create_all(engine)

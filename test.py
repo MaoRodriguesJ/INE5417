@@ -1,9 +1,11 @@
-from main import Session
-import hourtable
+from top-level.technical.db import Base, Session, Engine
+from top-level.domain import hourtable, date, user, event, hour
 from date import Date
 from user import User
 from event import Event
 from hour import Hour
+
+Base.metadata.create_all(Engine)
 
 hour_table = hourtable.HourTable(name='test1')
 user = User(name='user1', email='email@1')

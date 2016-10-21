@@ -1,4 +1,4 @@
-from base import Base
+from ..technical.db import Base
 from sqlalchemy import Column, Integer, String
 
 class Hour(Base):

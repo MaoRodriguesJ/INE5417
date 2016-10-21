@@ -1,9 +1,6 @@
-import event
-from user import User
-from handler import Handler
+from ..technical.handler import Handler
+from ..technical.db import Base, Session
 
-from main import Session
-from base import Base
 from sqlalchemy import Column, Integer, String, orm
 
 class HourTable(Base):
@@ -19,8 +16,9 @@ class HourTable(Base):
 
 	@orm.reconstructor
 	def init_on_load(self):
-		self.events = Session.query(event.Event).filter(
-					  event.Event.hourtable_id == self._id).all()
+		from event import Event
+		self.events = Session.query(Event).filter(
+					  					   Event.hourtable_id == self._id).all()
 
 	def __repr__(self):
 		return self.name
@@ -31,8 +29,10 @@ class HourTable(Base):
 		for k in self.events:
 			print(k)
 
+	#do not know if its going to be like this		
 	def add_event(self):
-		self.events.append(event.Event.create_event())
+		from event import Event
+		self.events.append(Event.create_event())
 
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))

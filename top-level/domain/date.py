@@ -1,8 +1,7 @@
-import event
+from event import Event
 from hour import Hour
 
-from main import Session
-from base import Base
+from ..technical.db import Base, Session
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship
 
@@ -15,7 +14,7 @@ class Date(Base):
 	finish_hour_id = Column(Integer, ForeignKey('hour._id'))
 	finish_hour = relationship(Hour, foreign_keys=[finish_hour_id])
 	event_id = Column(Integer, ForeignKey('event._id'))
-	event = relationship(event.Event)
+	event = relationship(Event)
 
 	def __init__(self, weekday, start_hour, finish_hour, event):
 		self.weekday = weekday
