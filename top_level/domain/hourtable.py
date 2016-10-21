@@ -1,5 +1,6 @@
 from ..technical.handler import Handler
-from ..technical.db import Base, Session
+from ..technical.db import Base
+from ..technical.mapper import Mapper
 
 from sqlalchemy import Column, Integer, String, orm
 
@@ -11,17 +12,16 @@ class HourTable(Base):
 	def __init__(self, name):
 		self.name = name
 		self.events = []
+		self.workspace = []
 		self.common = []
 		self.possibilities = []
 
 	@orm.reconstructor
 	def init_on_load(self):
-		from .event import Event
-		self.events = Session.query(Event).filter(
-					  					   Event.hourtable_id == self._id).all()
+		self.events = Mapper.map_hour_table_events(self._id)
 
 	def __repr__(self):
-		return self.name
+		return 'HourTable Name: {}'.format(self.name)
 
 	#used for printing
 	def list_events(self):

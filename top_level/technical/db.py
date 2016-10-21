@@ -8,5 +8,3 @@ Engine = create_engine('sqlite:///sqlalchemy.db')
 Base.metadata.bind = Engine
 DBSession = sessionmaker(bind=Engine)
 Session = DBSession()
-
-#Base.metadata.create_all(engine)

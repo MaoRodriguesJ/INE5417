@@ -12,10 +12,4 @@ class User(Base):
 		self.email = email
 
 	def __str__(self):
-		return '\n{} \n{}'.format(self.name, self.email)
-
-	#testing, not to be used in final project
-	def create_user():
-		name = input('Choose a name: ')
-		email = input('Choose a email: ')
-		return User(name, email)
+		return 'User Name: {} \nUser E-mail: {}'.format(self.name, self.email)
