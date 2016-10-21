@@ -1,19 +1,14 @@
-import user
-import hourtable
-
-def user_interaction(user):
-	signout = False
-	current_hour_table = -2
-	while not signout:
-		case = input("\n1 Create Hourtable\
-					  \n2 Select Hourtable\
-					  \n3 Show user and hourtables\
-					  \n4 List Events\
-					  \n5 Load Premade Events\
-					  \n6 Create event\
-					  \n7 Possible Combination\
-				  	  \n8 In Common Combination\
-				  	  \n9 Sign Out\n")
+def user_interaction():
+	exit = False
+	while not exit:
+		case = input("\n1 Create HourTable\
+					  \n2 Select HourTable\
+					  \n3 Show Users and HourTables\
+					  \n4 List Events From Current HourTable\
+					  \n5 Create event At Current HourTable\
+					  \n6 Possible Combination\
+				  	  \n7 In Common Combination\
+				  	  \n8 Exit\n")
 
 		if case == '1':
 			x = hourtable.HourTable(input('Choose a name: '))
@@ -87,36 +82,4 @@ def user_interaction(user):
 				user.hourtables[current_hour_table].check_common()
 
 		if case == '9':
-			signout = True
-
-exit = False
-users = []
-while not exit:
-	case = input("\n1 Sing Up\
-				  \n2 Sign In\
-				  \n3 List Users\
-				  \n4 Exit\n")
-	if case == '1':
-		users.append(user.User.create_user())
-
-	if case == '2':
-		name = input('What is the username?\n')
-		logged = False
-		for k in users:
-			if k.name == name:
-				password = input('What is the password?\n')
-				if k.password == password:
-					logged = True
-					user = k
-				else:
-					print('Wrong password.')
-
-		if logged:
-			user_interaction(user)
-		else:
-			print('User not found.')
-	if case == '3':
-		for k in users:
-			print(k)
-	if case == '4':
-		exit = True
+			exit = True
