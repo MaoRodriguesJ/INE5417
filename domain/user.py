@@ -1,4 +1,4 @@
-from base import Base
+from ..technical import db
 from sqlalchemy import Column, Integer, String
 
 class User(Base):
@@ -14,6 +14,7 @@ class User(Base):
 	def __str__(self):
 		return '\n{} \n{}'.format(self.name, self.email)
 
+	#testing, not to be used in final project
 	def create_user():
 		name = input('Choose a name: ')
 		email = input('Choose a email: ')
