@@ -1,5 +1,5 @@
-from top-level.technical.db import Base, Session, Engine
-from top-level.domain import hourtable, date, user, event, hour
+from top_level.technical.db import Base, Session, Engine
+from top_level.domain import hourtable, date, user, event, hour
 from date import Date
 from user import User
 from event import Event
