@@ -19,7 +19,7 @@ class Date(Base):
 	def __init__(self, weekday, start_hour, finish_hour, event):
 		self.weekday = weekday
 		self.start_hour = start_hour
-		self.finis_hhour = finish_hour
+		self.finish_hour = finish_hour
 		self.event = event
 
 	@orm.reconstructor
