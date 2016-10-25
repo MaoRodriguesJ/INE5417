@@ -38,6 +38,5 @@ class Hour(Base):
 	def __eq__(self, other):
 		return (self.hour == other.hour and self.minute == other.minute)
 
-	#for debbuging
 	def __str__(self):
 		return '{}:{}'.format(self.hour, self.minute)

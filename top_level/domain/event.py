@@ -32,3 +32,25 @@ class Event(Base):
 	def __str__(self):
 		return '\nEvent Name: {}\nEvent Local: {}\n{}\nPossible dates: {}'.format(
 			self.name, self.local, self.user, self.dates)
+
+	#just for testing
+	def create_event():
+		from .date import Date
+		from .hour import Hour
+		name = input('What is the name of the event?')
+		local = input('What is the local of the event?')
+		user = User.create_user() 		
+		dates = []
+		possible = True
+		while possible:
+			weekday = input('When is a possible weekday?')
+			starthour = Hour(input('When is the start hour?'))
+			finishhour = Hour(input('When in the finish hour?'))
+			date = Date(weekday, starthour, finishhour)
+			dates.append(date)
+			if input('Any more dates?') == 'yes':
+				possible = True
+			else:
+				possible = False
+
+		return Event(name, local, user, dates)

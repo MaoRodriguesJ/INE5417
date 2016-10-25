@@ -1,4 +1,26 @@
+from top_level.technical.db import Base, Session, Engine
+from top_level.technical.mapper import Mapper
+from top_level.domain import hourtable, date, user, event, hour
+
+def user_operations():
+
+def hour_table_operations():
+
+def event_operations():
+
+if __name__ == '__main__':
+	current_hour_table = None
+	current_user = None
+	exit = False
+	while not exit:
+	case = input("\n1 User Operations\
+				  \n2 HourTable Operations\
+				  \n3 Exit\n")
+
+
 def user_interaction():
+	current_hour_table = None
+	current_user = None
 	exit = False
 	while not exit:
 		case = input("\n1 Create HourTable\

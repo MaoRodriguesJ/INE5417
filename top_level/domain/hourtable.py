@@ -34,6 +34,7 @@ class HourTable(Base):
 		from .event import Event
 		self.events.append(Event.create_event())
 
+	#not going to be like this
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
@@ -42,6 +43,7 @@ class HourTable(Base):
 		for k in possibilities:
 			print(k)
 
+	#not going to be like this
 	def check_common(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
