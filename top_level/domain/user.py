@@ -13,9 +13,3 @@ class User(Base):
 
 	def __str__(self):
 		return 'User Name: {} \nUser E-mail: {}'.format(self.name, self.email)
-
-	#just for testing
-	def create_user():
-		name = input('Username: ')
-		email = input('E-mail: ')
-		return User(name, email)

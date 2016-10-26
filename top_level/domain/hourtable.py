@@ -1,5 +1,5 @@
 from ..technical.handler import Handler
-from ..technical.db import Base
+from ..technical.db import Base, Session
 from ..technical.mapper import Mapper
 
 from sqlalchemy import Column, Integer, String, orm
