@@ -32,3 +32,6 @@ class Event(Base):
 	def __str__(self):
 		return '\nEvent Name: {}\nEvent Local: {}\n{}\nPossible dates: {}'.format(
 			self.name, self.local, self.user, self.dates)
+
+	def add_date(self, date):
+		self.dates.append(date)

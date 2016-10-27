@@ -23,23 +23,15 @@ class HourTable(Base):
 	def __repr__(self):
 		return 'HourTable Name: {}'.format(self.name)
 
-	#used for printing
-	def list_events(self):
-		print('\nHourTable: '+self.name)
-		for k in self.events:
-			print(k)
-
-	#do not know if its going to be like this		
-	def add_event(self):
-		from .event import Event
-		self.events.append(Event.create_event())
+	def add_event(self, event):
+		self.events.append(event)
 
 	#not going to be like this
 	def check_possibilities(self):
 		case_event1 = int(input('Number of first event: '))
 		case_event2 = int(input('Number of second event: '))
 		possibilities = Handler.possibilities(self.events[case_event1],
-													  self.events[case_event2])
+											  self.events[case_event2])
 		for k in possibilities:
 			print(k)
 
@@ -50,4 +42,10 @@ class HourTable(Base):
 		common = Handler.incommon(self.events[case_event1],
 										  self.events[case_event2])
 		for k in common:
+			print(k)
+
+	#used for printing and testing
+	def list_events(self):
+		print('\nHourTable: '+self.name)
+		for k in self.events:
 			print(k)

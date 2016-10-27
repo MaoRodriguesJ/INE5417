@@ -1,17 +1,6 @@
-from .db import Base, Session, Engine
+from .db import Session
 
-class Mapper():
-
-	@staticmethod
-	def create_all():	
-		Base.metadata.create_all(Engine)
-
-	@staticmethod	
-	def clear_all():
-		for table in reversed(Base.metadata.sorted_tables):
-			print ('Clear table: {}'.format(table))
-			Session.execute(table.delete())
-		Session.commit()
+class Mapper:
 
 	@staticmethod
 	def map_hour_table_events(_id):

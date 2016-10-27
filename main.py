@@ -1,5 +1,4 @@
-from top_level.technical.db import Session
-from top_level.technical.mapper import Mapper
+from top_level.technical.db import DB
 
 from top_level.domain.hourtable import HourTable 
 from top_level.domain.date import Date
@@ -19,16 +18,16 @@ def user_operations(current_user):
 			name = input('UserName: ')
 			email = input('E-mail: ')
 			user = User(name, email)
-			Session.add(user)
-			Session.commit()
+			DB.add(user)
+			current_user = user
 
 		if case == '2':
-			for i in Session.query(User).all():
+			for i in DB.search_all(User('','')):
 				print('{} - ID = {}\n'.format(i, i._id))
 
 		if case == '3':
 			_id = int(input('UserName ID: '))
-			user = Session.query(User).filter(User._id == _id).scalar()
+			user = DB.search_one(User('',''), _id)
 			if user is None:
 				print('None user found!\n')
 			else:
@@ -49,24 +48,21 @@ def hour_table_operations(current_hour_table, current_user):
 					  \n2 List HourTables\
 					  \n3 Change HourTable\
 					  \n4 Event Operations\
-					  \n5 In Common\
-					  \n6 Possible Combination\
-					  \n7 Return\n")
+					  \n5 Return\n")
 
 		if case == '1':
 			name = input('HourTable name: ')
 			hour_table = HourTable(name)
-			Session.add(hour_table)
-			Session.commit()
+			DB.add(hour_table)
+			current_hour_table = hour_table
 
 		if case == '2':
-			for i in Session.query(HourTable).all():
+			for i in DB.search_all(HourTable('')):
 				print('{} - ID = {}\n'.format(i, i._id))
 
 		if case == '3':
 			_id = int(input('HourTable ID: '))
-			hour_table = Session.query(HourTable).\
-						 filter(HourTable._id == _id).scalar()
+			hour_table = DB.search_one(HourTable(''), _id)
 			if hour_table is None:
 				print('None HourTable found!\n')
 			else:
@@ -81,22 +77,6 @@ def hour_table_operations(current_hour_table, current_user):
 				event_operations(current_hour_table, current_user)
 
 		if case == '5':
-			hour_table = Session.query(HourTable).\
-						 filter(HourTable._id == current_hour_table._id).scalar()
-			print('The session to access the database is not working well yet, '+\
-				  'so if this returns a error even tough you know it should not' +\
-				  'you can reopen the application that will work.\n')
-			hour_table.check_common()
-
-		if case == '6':
-			hour_table = Session.query(HourTable).\
-						 filter(HourTable._id == current_hour_table._id).scalar()
-			print('The session to access the database is not working well yet, '+\
-				  'so if this returns a error even tough you know it should not' +\
-				  'you can reopen the application that will work.\n')
-			hour_table.check_possibilities()
-
-		if case == '7':
 			exit = True
 
 	return current_hour_table
@@ -106,7 +86,9 @@ def event_operations(current_hour_table, current_user):
 	while not exit:
 		case = input("\n1 Create Event\
 					  \n2 List Events\
-					  \n3 Return\n")
+					  \n3 Check In Common\
+					  \n4 Check Non Conflicting Possibilities\
+					  \n5 Return\n")
 
 		if case == '1':
 			name = input('What is the name of the event?')
@@ -119,34 +101,33 @@ def event_operations(current_hour_table, current_user):
 				starthour = Hour(input('When is the start hour?'))
 				finishhour = Hour(input('When in the finish hour?'))
 				date = Date(weekday, starthour, finishhour)
+				event.add_date(date)
 				date.event = event
-				Session.add(date)
-				if input('Any more dates?') == 'yes':
+				DB.add(date)
+				if input('Any more dates? [y/n]') == 'y':
 					possible = True
 				else:
 					possible = False
-			Session.commit()
+
+			current_hour_table.add_event(event)
 
 
 		if case == '2':
-			events = Session.query(Event).\
-					 filter(Event.hour_table_id == current_hour_table._id).all()
-			if events is not None:
-				for i in events:
-					print('{} - ID = {}\n'.format(i, i._id))
-
-			print('If the dates returns an empty list It is because ' +\
-				  'We did not learn how to handle sessions into the ' +\
-				  'database very well. Try to return to the previous ' +\
-				  'menu and come back that will work.\n')
+			current_hour_table.list_events()
 
 		if case == '3':
+			current_hour_table.check_common()
+
+		if case == '4':
+			current_hour_table.check_possibilities()
+
+		if case == '5':
 			exit = True
 
 if __name__ == '__main__':
-	current_hour_table = Session.query(HourTable).first()
-	current_user = Session.query(User).first()
-	Mapper.create_all();
+	DB.create();
+	current_hour_table = DB.search_one(HourTable(''), 1)
+	current_user = DB.search_one(User('',''), 1)
 	exit = False
 	while not exit:
 		case = input("\n1 User Operations\
@@ -161,11 +142,7 @@ if __name__ == '__main__':
 													   current_user)
 
 		if case == '3':
-			Mapper.clear_all()
+			DB.clear()
 
 		if case == '4':
 			exit =True
-
-		if case == '5':
-			for i in Session.query(Date).all():
-				print(i)
