@@ -9,7 +9,14 @@ Base.metadata.bind = Engine
 DBSession = sessionmaker(bind=Engine)
 Session = DBSession()
 
-class DB:
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+class DataBase:
 
     def create():   
         Base.metadata.create_all(Engine)
@@ -30,3 +37,6 @@ class DB:
     def search_one(obj, _id):
         return Session.query(obj.__class__).filter(obj.__class__._id == _id).\
                scalar()
+
+class DB(DataBase, metaclass=Singleton):
+    pass
