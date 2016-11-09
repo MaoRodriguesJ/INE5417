@@ -1,6 +1,6 @@
-from ..technical.handler import Handler
-from ..technical.db import Base, Session
-from ..technical.mapper import Mapper
+from top_level.technical.handler import Handler
+from top_level.technical.db import Base, Session
+from top_level.technical.mapper import Mapper
 
 from sqlalchemy import Column, Integer, String, orm
 

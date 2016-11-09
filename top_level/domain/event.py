@@ -1,8 +1,8 @@
-from .hourtable import HourTable
-from .user import User
+from top_level.domain.hourtable import HourTable
+from top_level.domain.user import User
 
-from ..technical.db import Base
-from ..technical.mapper import Mapper
+from top_level.technical.db import Base
+from top_level.technical.mapper import Mapper
 
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship

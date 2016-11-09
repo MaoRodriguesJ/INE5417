@@ -1,8 +1,8 @@
-from .event import Event
-from .hour import Hour
+from top_level.domain.event import Event
+from top_level.domain.hour import Hour
 
-from ..technical.db import Base
-from ..technical.mapper import Mapper
+from top_level.technical.db import Base
+from top_level.technical.mapper import Mapper
 
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship
