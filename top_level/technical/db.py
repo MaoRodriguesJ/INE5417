@@ -11,22 +11,22 @@ Session = DBSession()
 
 class DB:
 
-	def create():	
-		Base.metadata.create_all(Engine)
-	
-	def clear():
-		for table in reversed(Base.metadata.sorted_tables):
-			print ('Clear table: {}'.format(table))
-			Session.execute(table.delete())
-		Session.commit()
-	
-	def add(obj):
-		Session.add(obj)
-		Session.commit()
-	
-	def search_all(obj):
-		return Session.query(obj.__class__).all()
+    def create():   
+        Base.metadata.create_all(Engine)
+    
+    def clear():
+        for table in reversed(Base.metadata.sorted_tables):
+            print ('Clear table: {}'.format(table))
+            Session.execute(table.delete())
+        Session.commit()
+    
+    def add(obj):
+        Session.add(obj)
+        Session.commit()
+    
+    def search_all(obj):
+        return Session.query(obj.__class__).all()
 
-	def search_one(obj, _id):
-		return Session.query(obj.__class__).filter(obj.__class__._id == _id).\
-			   scalar()
+    def search_one(obj, _id):
+        return Session.query(obj.__class__).filter(obj.__class__._id == _id).\
+               scalar()
