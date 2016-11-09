@@ -1,3 +1,5 @@
+from top_level.technical.singleton import Singleton
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -8,13 +10,6 @@ Engine = create_engine('sqlite:///sqlalchemy.db')
 Base.metadata.bind = Engine
 DBSession = sessionmaker(bind=Engine)
 Session = DBSession()
-
-class Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
 
 class DataBase:
 
