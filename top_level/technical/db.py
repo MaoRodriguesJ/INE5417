@@ -5,7 +5,6 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 Base = declarative_base()
-
 Engine = create_engine('sqlite:///sqlalchemy.db')
 Base.metadata.bind = Engine
 DBSession = sessionmaker(bind=Engine)
@@ -18,12 +17,25 @@ class DataBase:
     
     def clear():
         for table in reversed(Base.metadata.sorted_tables):
-            print ('Clear table: {}'.format(table))
             Session.execute(table.delete())
+        Session.commit()
+        print('Cleared!')
+
+    def flush():
+        Session.flush()
         Session.commit()
     
     def add(obj):
         Session.add(obj)
+        Session.commit()
+
+    def bulk_insert(list):
+        for i in list:
+            Session.add(i)
+        Session.commit()
+
+    def delete(obj):
+        Session.delete(obj)
         Session.commit()
     
     def search_all(obj):
@@ -32,6 +44,9 @@ class DataBase:
     def search_one(obj, _id):
         return Session.query(obj.__class__).filter(obj.__class__._id == _id).\
                scalar()
+
+    def search_first(obj):
+        return Session.query(obj.__class__).first()
 
 class DB(DataBase, metaclass=Singleton):
     pass

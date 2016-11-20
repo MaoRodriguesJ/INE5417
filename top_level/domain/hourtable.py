@@ -1,13 +1,18 @@
 from top_level.technical.handler import Handler
-from top_level.technical.db import Base, Session
-from top_level.technical.mapper import Mapper
+from top_level.technical.db import Base
+
+from top_level.domain.event import Event
 
 from sqlalchemy import Column, Integer, String, orm
+from sqlalchemy.orm import relationship
 
 class HourTable(Base):
     __tablename__ = 'hourtable'
     _id = Column(Integer, primary_key=True)
     name = Column(String(250))
+
+    events = relationship("Event", backref="hourtable",
+                          cascade="all, delete-orphan", single_parent=True)
 
     def __init__(self, name):
         self.name = name
@@ -15,10 +20,6 @@ class HourTable(Base):
         self.workspace = []
         self.common = []
         self.possibilities = []
-
-    @orm.reconstructor
-    def init_on_load(self):
-        self.events = Mapper.map_hour_table_events(self._id)
 
     def __repr__(self):
         return 'HourTable Name: {}'.format(self.name)
