@@ -1,6 +1,6 @@
 from top_level.domain.hour import Hour
 
-from top_level.technical.db import Base
+from top_level.technical.db import Base, Session
 
 from sqlalchemy import Column, Integer, String, ForeignKey, orm
 from sqlalchemy.orm import relationship
@@ -23,6 +23,13 @@ class Date(Base):
         self.weekday = weekday
         self.start_hour = start_hour
         self.finish_hour = finish_hour
+
+    @orm.reconstructor
+    def init_on_load(self):
+        self.start_hour = Session.query(Hour).filter(Hour._id == self.start_hour_id).\
+                          scalar()
+        self.finish_hour = Session.query(Hour).filter(Hour._id == self.finish_hour_id).\
+                           scalar()
 
     def __repr__(self):
         return '({}, {}/{})'.format(self.weekday, self.start_hour, self.finish_hour)
