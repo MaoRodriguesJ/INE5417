@@ -246,7 +246,7 @@ def event_operations(current_hour_table, current_user):
                 DB.delete(event)
 
         if case == '5':
-            current_hour_table.check_common()
+            print(current_hour_table.check_common())
 
         if case == '6':
             print(current_hour_table.check_possibilities())
