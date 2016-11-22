@@ -33,7 +33,7 @@ class HourTable(Base):
         return Handler.possibilities(self.events)
 
     def check_common(self):
-        return Handler.incommon(self.events)
+        return Handler.in_common(self.events)
 
     #used for printing and testing
     def list_events(self):
