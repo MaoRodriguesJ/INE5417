@@ -1,2 +1,4 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+sqlalchemy.db
+top_level/interface/mato.glade~
