@@ -1,27 +1,54 @@
+import itertools
+from top_level.technical.db import DB
+
 class Handler:
 
-    #JUST FOR TESTING (SHOWING CONFLICTS) NEED FULL ALGORITHM IN FINAL PROJECT
-    def possibilities(event1, event2):
-        possible_events = []
-        for dates1 in event1.dates:
-            for dates2 in event2.dates:
-                if(not(dates1.conflict(dates2))):
-                    possible_events.append('{} {} , {} {}'.format(
-                        event1.name,
-                        dates1,
-                        event2.name,
-                        dates2))
-        return possible_events
+    @staticmethod
+    def in_common_nested_loop(date, dict):
+        for possible_date in dict.values():
+            if(not(date.conflict(possible_date))):
+                return False
+        return True
 
-    #JUST FOR TESTING (SHOWING CONFLICTS) NEED FULL ALGORITHM IN FINAL PROJECT
-    def incommon(event1, event2):
-        incommon_events = []
-        for dates1 in event1.dates:
-            for dates2 in event2.dates:
-                if((dates1.conflict(dates2))):
-                    incommon_events.append('{} {} , {} {}'.format(
-                        event1.name,
-                        dates1,
-                        event2.name,
-                        dates2))
-        return incommon_events
+    @staticmethod
+    def possibilities_nested_loop(date, dict):
+        for possible_date in dict.values():
+            if((date.conflict(possible_date))):
+                return False
+        return True
+
+    @staticmethod
+    def possibilities(events):
+        possibilities = []
+
+        for cartesian_dates in itertools.product(*events):
+            aux = {}
+            for date in cartesian_dates:
+                test = Handler.possibilities_nested_loop(date, aux)
+                if test == True:
+                    aux[DB.search_one(events[0], date.event_id)] = date
+                else:
+                    aux = {}
+                    break
+                                     
+            possibilities.append(aux)      
+
+        return possibilities
+
+    @staticmethod
+    def in_common(events):
+        in_common = []
+
+        for cartesian_dates in itertools.product(*events):
+            aux = {}
+            for date in cartesian_dates:
+                test = Handler.in_common_nested_loop(date, aux)
+                if test == True:
+                    aux[DB.search_one(events[0], date.event_id)] = date
+                else:
+                    aux = {}
+                    break
+                                     
+            in_common.append(aux)      
+
+        return in_common

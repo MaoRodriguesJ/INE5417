@@ -1,4 +1,5 @@
 from top_level.technical.db import Base
+
 from sqlalchemy import Column, Integer, String
 
 class Hour(Base):
