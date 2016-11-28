@@ -9,8 +9,8 @@ class Hour(Base):
     minute = Column(Integer)
 
     def __init__(self, hour):
-        self.hour = hour.split(':')[0]
-        self.minute = hour.split(':')[1]
+        self.hour = int(hour.split(':')[0])
+        self.minute = int(hour.split(':')[1])
 
     def __gt__(self, other):
         if self.hour >= other.hour:

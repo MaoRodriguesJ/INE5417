@@ -13,7 +13,7 @@ class Handler:
     @staticmethod
     def possibilities_nested_loop(date, dict):
         for possible_date in dict.values():
-            if((date.conflict(possible_date))):
+            if(date.conflict(possible_date)):
                 return False
         return True
 

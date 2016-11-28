@@ -29,11 +29,6 @@ class DataBase:
         Session.add(obj)
         Session.commit()
 
-    def bulk_insert(list):
-        for i in list:
-            Session.add(i)
-        Session.commit()
-
     def delete(obj):
         Session.delete(obj)
         Session.commit()
